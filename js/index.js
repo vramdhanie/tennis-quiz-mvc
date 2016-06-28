@@ -1,4 +1,17 @@
-// Array of question objects.
+/*
+Start by designing the model. The data is static and stored in an array of objects (hash).
+Some things to consider:
+1. The data does not change so no methods are needed to add or edit the model.
+2. The question needs to be sent to the view - maybe I need a model method?
+3. The user's response needs to be compared to the correct answer - model or controller method?
+4. The feedback will be sent to the view - by which component?
+5. The score has to be updated depending on the user's answer.
+6. The correct button must be selected and added to the page based on the state of the app.
+7. The next question must be accessed and sent to the view upon which the entire process starts over again.
+ */
+
+// Array of question objects. Once I get this working I'll import these
+// from a separate file.
 var data = [{
         text: 'which player on the atp tour has won the most grand slam titles?',
         mystery_img: 'images/mystery-federer.png',
@@ -60,7 +73,8 @@ var data = [{
  * Represents a question object.
  * @constructor
  */
-var Question = function (name, text, mystery, actual, choices, answer, feedback) {
+var Question = function (name, text, mystery, actual, choices, answer,
+    feedback) {
     this.name = name || "";
     this.mysteryImg = mystery || "";
     this.actualImg = actual || "";
@@ -74,9 +88,10 @@ var Question = function (name, text, mystery, actual, choices, answer, feedback)
  * @param  {object} data Array of questions as JSON object
  * @return {array} qList Array of question objects
  */
-function createQuestion (data) {
-    var qList = [], count = 0;
-    $.each(data, function(i, question) {
+function createQuestion(data) {
+    var qList = [],
+        count = 0;
+    $.each(data, function (i, question) {
         count += 1;
         var name = "question" + count;
         var q = new Question(name, question.text, question.mystery_img,
@@ -87,7 +102,7 @@ function createQuestion (data) {
     return qList;
 }
 
-// Store the question objects in an array.
+// Store the question instances in a variable as an array.
 var questions = createQuestion(data);
 
 
