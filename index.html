@@ -1,25 +1,43 @@
-<!doctype HTML>
-<meta charset="utf-8">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link href='https://fonts.googleapis.com/css?family=Freckle+Face|Caveat:700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/normalize.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <title>Men's Tennis Quiz</title>
+</head>
+<body>
+<h1 class='title'>Tennis Quiz</h1>
+<section class="quiz">
 
-<title>Hello World Quiz</title>
+    <div class="start-quiz"></div>
 
-<div class="questions-page">
-    <div>
-        <span class="question-current">0</span>/<span class="questions-total">0</span>
+    <div class="question"></div>
+
+
+    <div class="container">
+
+        <div class="player"><img src="" height="603" width="379" alt="Tennis player" class="player-image"></div>
+
+        <form class="responses">
+            <div class="answer"></div>
+            <ul class="response-list">
+
+            </ul>
+
+        <div class="button"></div>
+
+        </form>
+        <div class="score">
+            <ul class="tennis-balls">
+
+            </ul>
+        </div>
     </div>
-    <div class="question">
-
-    </div>
-    <ul class="answers">
-    </ul>
-</div>
-
-<div class="results-page" style="display: none;">
-    <div>
-        You scored <span class="score">0</span>/<span class="questions-total">0</span>
-    </div>
-    <button type="button" class="restart-button">Restart</button>
-</div>
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script src="index.js"></script>
+</section>
+<script src="//code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+<script src="js/index.js"></script>
+</body>
+</html>
