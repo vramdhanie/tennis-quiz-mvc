@@ -85,8 +85,8 @@ var Question = function (name, text, mystery, actual, choices, answer,
 
 /**
  * Instantiates the questions and returns an array.
- * @param  {object} data Array of questions as JSON object
- * @return {array} qList Array of question objects
+ * @param  {array} data Array of questions as JSON objects.
+ * @return {array} qList Array of question object instances.
  */
 function createQuestion(data) {
     var qList = [],
