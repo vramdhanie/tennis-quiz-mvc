@@ -114,7 +114,6 @@ var Model = function (questions) {
     this.questions = questions;
     this.currentQuestion = 0;
     this.score = 0;
-    this.numberOfQuestions = questions.length;
 };
 
 // Method to increment the question number as the user progresses in the quiz.
@@ -143,15 +142,34 @@ var View = function () {
     this.responseList = $('.response-list');
     this.playerImage = $('.player img');
     this.score = $('ul.tennis-balls');
+    this.button = $('.button');
 
     this.next = null;
 }
 
-View.prototype.resetScore = function (numberOfQuestions) {
+View.prototype.reset = function (numQuestions) {
     this.score.empty();
-    for (var i = 0; i < numberOfQuestions; i++) {
+    for (var i = 0; i < numQuestions; i++) {
         this.score.append(this.scoreBallTemplate(i));
     }
+}
+
+View.prototype.setButton = function (type) {
+    var id, value, name;
+    if (type === 'submit') {
+        id = 'submit-button';
+        value = 'Submit';
+    } else if (type === 'next') {
+        id = 'next-button';
+        value = 'Next';
+    } else if (type === 'retake') {
+        id = 'retake-button';
+        value = 'Try Again';
+    }
+    this.button.attr('id', value);
+    this.button.attr('value', text);
+    this.button.attr('name', type);
+    return;
 }
 
 View.prototype.scoreBallTemplate = function (index) {
@@ -202,8 +220,9 @@ Controller.prototype.updateQuestion = function () {
 }
 
 Controller.prototype.setupQuiz = function () {
+    var numQuestions = this.model.questions.length;
     this.model.reset();
-    this.view.resetScore(this.model.numberOfQuestions);
+    this.view.reset(numQuestions);
 }
 
 $(document).ready(startQuiz);
