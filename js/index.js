@@ -136,16 +136,37 @@ Model.prototype.reset = function () {
  * Represents the view.
  */
 var View = function () {
-    //declare the elements that need to be manipulated.
+    //declare the elements that need to be evaluated or manipulated.
     this.question = $('.question');
-    this.button = $('.button');
+    this.button = $('.button input');
     this.responseList = $('.response-list');
     this.playerImage = $('.player img');
     this.score = $('ul.tennis-balls');
-    this.button = $('.button');
+    this.selectedAnswer = $("input[type='radio'][name='selection']:checked");
 
-    this.next = null;
+    this.onSubmit = null;
+
+    this.button.on('click', this.onSubmit.bind(this));
 }
+
+/*
+TODO List
+ */
+
+// DONE: The view has a list of radio inputs
+// DONE: The view has a submit button associated with the radio inputs
+// When the submit button is clicked, the user's selection is compared to the correct answer.
+// The choices are removed and the feedback is presented.
+// The mystery image is replaced with the actual image.
+// The score ball is updated to the color based on whether or not the answer was correct.
+// The submit button is replaced by a next button.
+// When the next button is clicked, the next question, choices, and mystery image are presented.
+// The process continues until the results from the last question are rendered.
+// The retake button is presented.
+// If the retake button is clicked, the quiz is reset.
+//
+// Considerations: The id, value and name attributes of the button (input) need
+// to change based on the state of the app.
 
 View.prototype.reset = function (numQuestions) {
     this.score.empty();
@@ -185,8 +206,9 @@ View.prototype.listOptionTemplate = function(number, text) {
                 number + '"><span>' + text + '</span></li>';
 }
 
-View.prototype.onNext = function() {
-
+View.prototype.onSubmit = function() {
+    var value = this.button.val();
+    if
 }
 
 View.prototype.displayQuestion = function (question) {
@@ -212,6 +234,9 @@ View.prototype.displayQuestion = function (question) {
 var Controller = function (model, view) {
     this.model = model;
     this.view = view;
+
+    // bindings
+    view.onSubmit = model.gradeResponse.bind(model);
 };
 
 // Take the data from the model and render it in the view.
