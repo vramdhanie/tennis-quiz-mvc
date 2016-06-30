@@ -114,6 +114,7 @@ var Model = function (questions) {
     this.questions = questions;
     this.currentQuestion = 0;
     this.score = 0;
+    this.numberOfQuestions = questions.length;
 };
 
 // Method to increment the question number as the user progresses in the quiz.
@@ -140,13 +141,30 @@ var View = function () {
     this.question = $('.question');
     this.button = $('.button');
     this.responseList = $('.response-list');
+    this.playerImage = $('.player img');
+    this.score = $('ul.tennis-balls');
 
     this.next = null;
 }
 
-View.prototype.template = function(number, text) {
-    return '<li class="response"><input type="radio" name="selection" value="' +
-                number + '"><span>' + text + '</span></li>'
+View.prototype.resetScore = function (numberOfQuestions) {
+    this.score.empty();
+    for (var i = 0; i < numberOfQuestions; i++) {
+        this.score.append(this.scoreBallTemplate(i));
+    }
+}
+
+View.prototype.scoreBallTemplate = function (index) {
+    return  '<li class="score-ball ball-' + index +
+            '"><img src="images/no-answer-ball.png" ' +
+            'height="57" width="57" alt="Score ball">' +
+            '</li>';
+}
+
+View.prototype.listOptionTemplate = function(number, text) {
+    return '<li class="response">' +
+            '<input type="radio" name="selection" value="' +
+                number + '"><span>' + text + '</span></li>';
 }
 
 View.prototype.onNext = function() {
@@ -158,10 +176,14 @@ View.prototype.displayQuestion = function (question) {
     this.question.text(question.text);
     // display the choices
     var choices = question.choices;
+    // Make sure the list of options is empty before appending the new choices.
+    this.responseList.empty();
+    // Iterate over the list and add the choice to the list
     for (var i = 0; i < choices.length; i++) {
-        var option = choices[i];
-        this.responseList.html(this.template(i, option));
+        this.responseList.append(this.listOptionTemplate(i, choices[i]));
     }
+    // Display the mystery image
+    this.playerImage.attr('src', question.mysteryImg);
 }
 
 /**
@@ -170,13 +192,18 @@ View.prototype.displayQuestion = function (question) {
  * @param {Object} view  Presents the data and listens for events.
  */
 var Controller = function (model, view) {
-     this.model = model;
-     this.view = view;
+    this.model = model;
+    this.view = view;
 };
 
 // Take the data from the model and render it in the view.
 Controller.prototype.updateQuestion = function () {
     this.view.displayQuestion(this.model.getCurrentQuestion());
+}
+
+Controller.prototype.setupQuiz = function () {
+    this.model.reset();
+    this.view.resetScore(this.model.numberOfQuestions);
 }
 
 $(document).ready(startQuiz);
@@ -188,6 +215,7 @@ function startQuiz () {
     var controller = new Controller(model, view);
 
     // Get the quiz started.
+    controller.setupQuiz();
     controller.updateQuestion();
 }
 
