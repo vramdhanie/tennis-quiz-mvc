@@ -1,0 +1,28 @@
+{
+  "name": "tennis-quiz-mvc",
+  "version": "1.0.0",
+  "description": "An attempt to convert the tennis quiz app to use an MVC design pattern.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/agilebluefox/tennis-quiz-mvc.git"
+  },
+  "keywords": [
+    "mvc",
+    "css3",
+    "html5",
+    "jQuery"
+  ],
+  "author": "David Conner",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/agilebluefox/tennis-quiz-mvc/issues"
+  },
+  "homepage": "https://github.com/agilebluefox/tennis-quiz-mvc#readme",
+  "dependencies": {
+    "jquery": "^3.0.0"
+  }
+}
