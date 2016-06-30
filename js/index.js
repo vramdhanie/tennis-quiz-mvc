@@ -146,7 +146,7 @@ var View = function () {
 
     this.onSubmit = null;
 
-    this.button.on('click', this.onSubmit.bind(this));
+    // this.button.on('click', this.onSubmit.bind(this));
 }
 
 /*
@@ -208,7 +208,7 @@ View.prototype.listOptionTemplate = function(number, text) {
 
 View.prototype.onSubmit = function() {
     var value = this.button.val();
-    if
+
 }
 
 View.prototype.displayQuestion = function (question) {
@@ -236,7 +236,7 @@ var Controller = function (model, view) {
     this.view = view;
 
     // bindings
-    view.onSubmit = model.gradeResponse.bind(model);
+    // view.onSubmit = model.gradeResponse.bind(model);
 };
 
 // Take the data from the model and render it in the view.
