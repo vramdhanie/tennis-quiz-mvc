@@ -133,6 +133,10 @@ Model.prototype.reset = function () {
     this.currentQuestion = 0;
 }
 
+Model.prototype.checkResponse = function(choice){
+    //check if this is correct
+}
+
 /**
  * Represents the view.
  */
@@ -146,6 +150,7 @@ var View = function () {
     this.selectedAnswer = $("input[type='radio'][name='selection']:checked");
 
     this.onSubmit = null;
+    this.onNext = null;
 
     // this.button.on('click', this.onSubmit.bind(this));
 }
@@ -174,16 +179,31 @@ View.prototype.reset = function (numQuestions) {
     for (var i = 0; i < numQuestions; i++) {
         this.score.append(this.scoreBallTemplate(i));
     }
+    this.button.click(this._submit.bind(this));
+}
+
+View.prototype._submit = function(){
+    console.log('Button Clicked');
+    var choice = $("input[type='radio'][name='selection']:checked")
+        .val();
+    this.onSubmit(choice);
+}
+
+View.prototype._next = function(){
+    //code for the next button
 }
 
 View.prototype.setButton = function (type) {
     var id, value, name;
+    this.button.unbind();
     if (type === 'submit') {
         id = 'submit-button';
         value = 'Submit';
+        this.button.click(this._submit.bind(this));
     } else if (type === 'next') {
         id = 'next-button';
         value = 'Next';
+        this.button.click(this._next.bind(this));
     } else if (type === 'retake') {
         id = 'retake-button';
         value = 'Try Again';
@@ -207,10 +227,6 @@ View.prototype.listOptionTemplate = function(number, text) {
                 number + '"><span>' + text + '</span></li>';
 }
 
-View.prototype.onSubmit = function() {
-    var value = this.button.val();
-
-}
 
 View.prototype.displayQuestion = function (question) {
     // code to display a question
@@ -237,8 +253,18 @@ var Controller = function (model, view) {
     this.view = view;
 
     // bindings
-    // view.onSubmit = model.gradeResponse.bind(model);
+    this.view.onSubmit = this.submit;
 };
+
+Controller.prototype.submit = function(choice){
+    console.log('The selected choice is ' + choice);
+    //here we can check the model for the correct answer
+    if(this.model.checkResponse(choice)){
+        //update the view accordingly
+    }else{
+        //update the view
+    }
+}
 
 // Take the data from the model and render it in the view.
 Controller.prototype.updateQuestion = function () {
